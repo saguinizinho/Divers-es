@@ -1,0 +1,37 @@
+public override Person Read(
+    ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+{
+    Utf8JsonReader readerClone = reader;
+
+    if (readerClone.TokenType != JsonTokenType.StartObject)
+    {
+        throw new JsonException();
+    }
+
+    readerClone.Read();
+    if (readerClone.TokenType != JsonTokenType.PropertyName)
+    {
+        throw new JsonException();
+    }
+
+    string? propertyName = readerClone.GetString();
+    if (propertyName != "TypeDiscriminator")
+    {
+        throw new JsonException();
+    }
+
+    readerClone.Read();
+    if (readerClone.TokenType != JsonTokenType.Number)
+    {
+        throw new JsonException();
+    }
+
+    TypeDiscriminator typeDiscriminator = (TypeDiscriminator)readerClone.GetInt32();
+    Person person = typeDiscriminator switch
+    {
+        TypeDiscriminator.Customer => JsonSerializer.Deserialize<Customer>(ref reader)!,
+        TypeDiscriminator.Employee => JsonSerializer.Deserialize<Employee>(ref reader)!,
+        _ => throw new JsonException()
+    };
+    return person;
+}
