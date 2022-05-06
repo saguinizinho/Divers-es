@@ -1,0 +1,14 @@
+public class Person
+{
+    public string? Name { get; set; }
+}
+
+public class Customer : Person
+{
+    public decimal CreditLimit { get; set; }
+}
+
+public class Employee : Person
+{
+    public string? OfficeNumber { get; set; }
+}
