@@ -1,0 +1,41 @@
+<?php
+function retornaDiv($n){
+	$divisores = array();
+	/* Tenta dividir por todos os números entre 1 e a metade inferior do número */
+	$metInf = floor($n/2);
+		for($i=1;$i<=$metInf;$i++){
+			if(!($n%$i))
+				$divisores[] = $i;
+		}
+	return $divisores;
+}
+
+function somaPerfeita($n,$div){
+	$soma = 0;
+	foreach($div as $divisores){
+		$soma += $divisores;
+	}
+	
+	if($soma==$n){
+		return true;
+	}else{
+		return false;
+	}
+}
+
+//Recendo o número do usuário via form ou via url
+$n = $_GET["n"];
+$nPerf = array();
+$i = 2;	
+
+while(count($nPerf)<$n){
+	$div = retornaDiv($i);
+	if(somaPerfeita($i,$div))
+	     $nPerf[] = $i;
+	$i += 2;
+}
+
+foreach($nPerf as $key){
+	echo $key."<br>";
+}
+?>
