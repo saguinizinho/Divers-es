@@ -1,0 +1,30 @@
+template <int N>
+void foo( const int t )
+{
+   // processa alguma coisa
+}
+
+void teste1()
+{
+   int foo = 3;
+
+   if( foo<1>(3) ) // situação 1
+   {
+      // processa alguma coisa
+   }
+   else
+   {
+      // processa alguma coisa
+   }
+}
+
+void teste2()
+{
+   foo<1>(3); // situação 2
+}
+
+int main()
+{
+   teste1();
+   teste2();
+}
