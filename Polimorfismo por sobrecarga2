@@ -1,0 +1,42 @@
+<?php
+	class Circulo
+	{
+		private $raio;
+		function Circulo( $intValue ){
+		$this->raio = (double) $intValue;
+	}
+
+		public function getArea()
+		{
+			return pow( $this->raio, 2) * 3.14;
+		}
+	}
+
+	class Quadrado
+	{
+		private $a; 
+		function Quadrado( $intValue )
+		{
+			$this->a = (double) $intValue;
+		}
+
+		public function getArea()
+		{
+			return ($this->a * $this->a);
+		}
+	}
+
+	class FiguraPolimorfismo
+	{
+		public function addItem( &$arrIFigura , Circulo $objFigura
+		{
+			array_push($arrIFigura, $objFigura);
+		}
+    
+		//Não funciona, pois esse método tenta sobrescrever o método anterior
+		public function addItem( &$arrIFigura , Quadrado $objFigura)
+		{
+			array_push($arrIFigura, $objFigura);
+		}
+	}
+?>
