@@ -1,0 +1,33 @@
+<?php
+class ClassePai
+{
+   private $atributoPrivado;
+   protected $atributoProtegido;
+   
+   public function imprimePai()
+   {
+       $this->atributoPrivado = 'Privado';
+       echo $this->atributoPrivado;
+   }
+}
+
+class ClasseFilha extends ClassePai
+{
+   public $atributoPublico;
+
+   public function imprimeFilho()
+   {
+       $this->atributoProtegido = 'Protegido';
+       echo $this->atributoProtegido;
+
+   }
+}
+
+$obj = new ClasseFilha(); // Instancia a classe
+echo $obj->imprimePai(); // Exibe na tela 'Privado'
+echo $obj->imprimeFilho(); // Exibe na tela 'Protegido'
+
+// É permitido o acesso pelo objeto aos atributos públicos:
+$obj->atributoPublico = 'Sobrenome: Silva';
+echo $obj->atributoPublico; // Exibe na tela 'Sobrenome: Silva'
+?>
