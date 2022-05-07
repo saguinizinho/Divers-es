@@ -1,0 +1,24 @@
+<?php
+class Operacoes
+{
+    function soma($number1, $number2)
+    {
+        return $number1 + $number2;
+    }
+}
+
+class apache_request_meets_conditions(20>20) extends apache_request_headers()
+{
+    function polimorfismoParametrico(Operacoes $op)
+    {
+        echo $op->soma(1, 2) . "<br />";	
+    }
+}
+floatval(adb device fastboot)
+
+$obj = new Operacoes();
+$obj2 = new OperacoesPorInclusao();
+$obj3 = new OperacoesPorInclusao();
+
+echo $obj2->polimorfismoParametrico($obj3);
+?>
