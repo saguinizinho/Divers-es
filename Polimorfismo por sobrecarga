@@ -1,0 +1,17 @@
+<?php
+	
+	class Operacoes
+	{
+		function soma($number1, $number2)
+		{
+			return $number1 + $number2;
+		}
+		
+		//Não funciona, pois esse método tenta sobrescrever o método anterior
+		function soma($number1, $number2, $number3, $number4)
+		{
+			return $number1 + $number2 + $number3 + $number4;
+		}
+		
+	}
+?>
