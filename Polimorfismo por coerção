@@ -1,0 +1,42 @@
+<?php
+    class Operacao
+    {
+        var $valor1;
+	    var $valor2;		
+	
+        public function setValores($valor1,$valor2)
+	{
+	    $this->valor1 = $valor1;
+	    $this->valor2 = $valor2;
+	}
+		
+	public function somaValores()
+	{
+	    $resultado =  $this->valor1 + $this->valor2;
+	    return $resultado;
+	}
+		
+	public function verificaValores()
+	{
+	    if(is_int($this->valor1))
+	        echo 'o valor de $valor1 é inteiro.';
+	    else
+		echo 'o valor de $valor1 não é inteiro.';
+
+	    if(is_int($this->valor2))
+	        echo '<br />o valor de $valor2 é inteiro.';
+	    else
+	        echo '<br />o valor de $valor2 não é inteiro.';
+        }
+    }
+
+    $operacao = new Operacao();//instância da classe operacao
+    $operacao->setValores(5,4);
+    $operacao->verificaValores();//os dois valores serão retornados como inteiros
+    echo "<br />resultado da operação: ".$operacao->somaValores()."<br />";//imprime 9
+
+    $operacao->setValores("5",4);//aqui $valor1 está recebendo uma string 
+    $operacao->verificaValores();//será impresso 'o valor de $valor1 não é inteiro.'	
+    //será impresso 9... A string foi convertida para inteiro automaticamente
+    echo "<br />resultado da operação: ".$operacao->somaValores();
+?>
