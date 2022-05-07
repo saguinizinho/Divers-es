@@ -1,0 +1,21 @@
+<?php
+class Person {
+
+    /*
+     * Construtor
+     * O construtor é chamado automaticamante quando o objeto é instanciado!
+     */
+    function __construct() {
+        print "Você chamou a função construtora";
+    }
+    
+
+    /*
+     * Destruidor
+     * Serve para realizar alguma operação no instante em que se destrói o objeto
+     */ 
+    function __destruct() {
+        print "Você chamou a função destruidora!";
+    }
+}
+?>
