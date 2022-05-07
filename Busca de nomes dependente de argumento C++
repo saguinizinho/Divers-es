@@ -1,0 +1,11 @@
+namespace NS
+{
+   class A {};
+   void f( A ) {}
+}
+ 
+int main()
+{
+   NS::A a;
+   f( a );     // invoca NS::f
+}
