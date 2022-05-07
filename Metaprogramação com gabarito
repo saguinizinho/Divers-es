@@ -1,0 +1,9 @@
+int factorial( int n )
+{
+   if( n == 0 )
+      return 1;
+   return n * factorial( n - 1 );
+}
+
+int x = factorial(4); // == (4 * 3 * 2 * 1) == 24
+int y = factorial(0); // == 0! == 1
