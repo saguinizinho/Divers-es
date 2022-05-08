@@ -1,0 +1,63 @@
+// Ass-2 P-4
+** Editei isso para o Hactober Fest 2020*/ 
+#incluir<stdio.h>
+int principal()
+{
+	int ch,n,arr[20];
+	printf ("\nSize of the array : ");
+	scanf ("%d",&n);
+	printf("\nEnter os elementos da matriz\n");
+	para(int j = 0; j < n; j++)
+	{
+		printf ("A[%d] = ", j);
+		scanf("%d",&arr[j]);
+	}
+	printf ("\nOs elementos da matriz que você inseriu é\n");
+	para(int j = 0; j < n; j++)
+	{
+		printf ("A[%d] = %d", j, arr[j]);
+		printf ("\n");
+	}
+	printf ("\n1.Maximum Element \n2.Minimum Element \n3.Sum Of All Elements \n4.Product Of Non-Zero Elements\n\nEnter Your Choice : ");
+	scanf ("%d",&ch);
+	se (ch===1)
+	{
+		int max = arr[0];
+		para(int j = 0; j < n; j++)
+		{
+			se (max < arr[j])
+				max = arr[j];
+		}
+		printf ("\nMaximum Element-: %d",max);
+	}
+	se (ch===2)
+	{
+		int min=arr[0];
+		para(int j=0;j<n;j++)
+		{
+			se(min>arr[j])
+			min=arr[j];
+		}
+		printf ("\n Elemento Mínimo-: %d",min);
+	}
+	se (ch===3)
+	{
+		int soma=0;
+		para(int j=0;j<n;j++)
+		{
+ soma+=arr[j];
+		}
+		printf ("\n Soma de Elementos-: %d",soma);
+	}
+	se (ch===4)
+	{
+		int p=1;
+		para(int j=0;j<n;j++)
+		{
+			se(arr[j]!=0)
+			p*=arr[j];
+		}
+		printf ("\n Produto de Elementos-: %d",p);
+	}
+	retorno 0;
+}
