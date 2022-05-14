@@ -1,0 +1,54 @@
+public abstract class Pessoa
+{
+    public string Nome { get; set; }
+
+    public abstract decimal GetSaldoNoBanco();
+
+}
+
+public class PessoaFisica : Pessoa
+{
+    public PessoaFisica()
+    {
+        Nome = "Pessoa Física";
+    }
+
+    public override decimal GetSaldoNoBanco()
+    {
+        return 1500;
+    }
+}
+
+public class PessoaJuridica : Pessoa
+{
+    public PessoaJuridica()
+    {
+        Nome = "Pessoa Jurídica";
+    }
+
+    public override decimal GetSaldoNoBanco()
+    {
+        return 20000;
+    }
+}
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        var pessoaFisica = new PessoaFisica();
+        var pessoaJuridica = new PessoaJuridica();
+
+        ImprimirValorDoBanco(pessoaFisica);
+        ImprimirValorDoBanco(pessoaJuridica);
+
+        Console.Read();
+    }
+
+    private static void ImprimirValorDoBanco(Pessoa pessoa)
+    {
+        var valorBanco = pessoa.GetSaldoNoBanco();
+        Console.WriteLine("Valor disponível na conta da {0} é: {1}",
+           pessoa.Nome, valorBanco);
+    }
+}
