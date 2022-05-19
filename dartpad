@@ -1,0 +1,90 @@
+void main() {
+  People team8 = new People();
+  team8._name = "Saguini";
+  team8._email = "saguini171@gmail.com";
+  print ('Nome:'+ team8._name);
+  print ('E-mail:'+ team8._email);
+}
+
+//começo da herança
+class People 
+{
+ String _name = "";
+ String _email = "";
+  
+ void setname(String _name){
+   this._name = _name;
+ }
+  
+
+getname(){
+    return this._name;
+  }
+}
+
+
+class Legal extends People
+{
+  String _cnpj = "";
+}
+
+class Physical extends People
+{
+  String _cpf = "";
+}
+
+class Worker extends Physical
+{
+  String _enrollment = "";
+}
+
+class Student
+{
+  String _rm = "";
+  
+  
+}
+// fim da herança
+
+class Course 
+{
+String _course = "";  
+}
+
+class Enrollment
+{
+  String _date = "";
+  
+  People people = new People(); 
+  
+   
+  Course course =  new Course();
+}
+
+class Subject 
+{
+  String _name = "";
+}
+
+class Grid 
+{
+  Course course = new Course();
+  
+  Subject subjetc = new Subject();
+  
+  Workload workload = new Workload();
+}
+
+class Workload
+{
+  
+}
+
+
+
+
+
+
+
+
+
