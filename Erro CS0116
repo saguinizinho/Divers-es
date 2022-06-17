@@ -1,0 +1,178 @@
+using MySql.Data.MySqlClient;
+using System;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Data;
+using System.Windows.Forms;
+using Sistema_Vendas.BLLClasses;
+
+namespace Sistema_Vendas.DALDados
+{
+    class userDAL
+    {
+        static string myconnstring = ConfigurationManager.ConnectionStrings["connstring"].ConnectionString;
+        #region Selecionar dados do DATABASE
+        public DataTable Select()
+        {
+            MySqlConnection conn = new MySqlConnection(myconnstring);
+            DataTable dt = new DataTable();
+            try
+            {
+                string mysql = "SELECT *FROM tbl_usuario";
+                MySqlCommand cmd = new MySqlCommand(mysql, conn);
+                MySqlDataAdapter adapter = new MySqlDataAdapter(cmd);
+                conn.Open();
+                adapter.Fill(dt);
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("ex.Message");
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return dt;
+        }
+        #endregion
+
+        #region Inserir Dados no Banco de Dados
+        public bool Insert(userBLL u)
+        {
+            bool isSuccess = false;
+            MySqlConnection conn = new MySqlConnection(myconnstring);
+            try
+            {
+                String mysql = "INSERT INTO tbl_usuario(nome, sobrenome, email, usuario, senha, contato, endereco, sexo, tipo_usuario, data_cadastro, adic_por) VALUES (@nome, @sobrenome, @email, @usuario, @senha, @contato, @endereco, @sexo, @tipo_usuario, @data_cadastro, @adic_por)";
+                MySqlCommand cmd = new MySqlCommand(mysql, conn);
+
+                cmd.Parameters.AddWithValue("@nome", u.nome);
+                cmd.Parameters.AddWithValue("@sobrenome", u.sobrenome);
+                cmd.Parameters.AddWithValue("@email", u.email);
+                cmd.Parameters.AddWithValue("@usuario", u.usuario);
+                cmd.Parameters.AddWithValue("@senha", u.senha);
+                cmd.Parameters.AddWithValue("@contato", u.contato);
+                cmd.Parameters.AddWithValue("@endereco", u.endereco);
+                cmd.Parameters.AddWithValue("@sexo", u.sexo);
+                cmd.Parameters.AddWithValue("@tipo_usuario", u.tipo_usuario);
+                cmd.Parameters.AddWithValue("@data_cadastro", u.data_Cadastro);
+                cmd.Parameters.AddWithValue("@adic_por", u.adic_por);
+
+                conn.Open();
+                int rows = cmd.ExecuteNonQuery();
+                if (rows > 0)
+                {
+                    isSuccess = true;
+                }
+                else
+                {
+                    isSuccess = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return isSuccess;
+
+
+        }
+        #endregion
+        #region Atualizar os Dados do Banco
+        public bool Update(userBLL u)
+        {
+            bool isSuccess = false;
+            MySqlConnection conn = new MySqlConnection(myconnstring);
+
+            try
+            {
+                string mysql = "UPDATE tbl_usuario SET nome=@nome, sobrenome=@sobrenome, email=@email, usuario=@usuario, senha=@senha, contato=@contato, endereco=@contato, sexo=@sexo, tipo_usuario=@tipo_usuario, data_cadastro=@data_cadastro, adic_por=Adic_por WHERE codigo=@codigo";
+                MySqlCommand cmd = new MySqlCommand(mysql, conn);
+
+                cmd.Parameters.AddWithValue("@nome", u.nome);
+                cmd.Parameters.AddWithValue("@sobrenome", u.sobrenome);
+                cmd.Parameters.AddWithValue("@email", u.email);
+                cmd.Parameters.AddWithValue("@usuario", u.usuario);
+                cmd.Parameters.AddWithValue("@senha", u.senha);
+                cmd.Parameters.AddWithValue("@contato", u.contato);
+                cmd.Parameters.AddWithValue("@endereco", u.endereco);
+                cmd.Parameters.AddWithValue("@sexo", u.sexo);
+                cmd.Parameters.AddWithValue("@tipo_usuario", u.tipo_usuario);
+                cmd.Parameters.AddWithValue("@data_cadastro", u.data_Cadastro);
+                cmd.Parameters.AddWithValue("@adic_por", u.adic_por);
+                cmd.Parameters.AddWithValue("@codigo", u.codigo);
+
+                conn.Open();
+                int rows = cmd.ExecuteNonQuery();
+
+                if (rows > 0)
+                {
+                    isSuccess = true;
+                }
+
+                else
+                {
+                    isSuccess = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+            finally
+            {
+                conn.Close();
+            }
+
+                return isSuccess;
+        }
+    }
+
+    #endregion
+        #region Deletar Registros do Banco de Dados
+    public bool Delete(userBLL u)
+    {
+        bool isSuccess = false;
+        MySqlConnection conn = new MySqlConnection(myconnstring);
+
+        try
+        {
+            string mysql = "DELETE FROM tbl_usuario WHERE codigo=@codigo";
+            MySqlCommand cmd = new MySqlCommand(mysql, conn);
+            cmd.Parameters.AddWithValue("@codigo", u.codigo);
+
+            conn.Open();
+            int rows = cmd.ExecuteNonQuery();
+
+            if (rows > 0)
+            {
+                isSuccess = true;
+            }
+
+            else
+            {
+                isSuccess = false;
+            }
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show(ex.Message);
+        }
+
+        finally
+        {
+            conn.Close();
+        }
+
+        return isSuccess;
+    }
+    #endregion
