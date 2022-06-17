@@ -1,0 +1,82 @@
+ public void Topframe_Load(object sender, EventArgs e)
+        {
+            FormClosing += new FormClosingEventHandler(Topframe_Closing);
+            notifyIcon1.ContextMenuStrip = contextMenuStrip1;
+            save_Btn.Enabled = false;
+            if (reg.GetValue("gateway") == null && reg.GetValue("ssid") == null)
+            {
+                NetworkInterface[] interfaces = NetworkInterface.GetAllNetworkInterfaces();
+                for (int i = 0; i < interfaces.Length; i++)
+                {
+                    if (interfaces[i].NetworkInterfaceType == NetworkInterfaceType.Wireless80211)
+                    {
+                        IPInterfaceProperties gatewayip = interfaces[i].GetIPProperties();
+                        if (gatewayip != null)
+                        {
+                            foreach (GatewayIPAddressInformation gw in gatewayip.GatewayAddresses)
+                            {
+                                gatewayIP_Textbox.Text = gw.Address.ToString();
+                                reg.SetValue("gateway", gw.Address.ToString());
+                                detector.GatewayAddr = gw.Address.ToString();
+                            }
+                        }
+                    }
+                }
+
+                wifi = new Wifi();
+                List<AccessPoint> aps = wifi.GetAccessPoints();
+                ssid_Textbox.Text = aps[0].Name.ToString();
+                reg.SetValue("ssid", aps[0].Name.ToString());
+                detector.SSID = aps[0].Name.ToString();
+
+                cycle_Textbox.Text = "5";
+                reg.SetValue("cycletime", "5");
+                detector.CycleTime = 5;
+
+
+            }
+            else
+            {
+                string gateway = (string)reg.GetValue("gateway");
+                string ssid = (string)reg.GetValue("ssid");
+                string cycletime = (string)reg.GetValue("cycletime");
+                string autostart_reg = (string)reg.GetValue("onload");
+
+                gatewayIP_Textbox.Text = gateway;
+                ssid_Textbox.Text = ssid;
+                cycle_Textbox.Text = cycletime;
+
+                detector.SSID = ssid;
+                detector.GatewayAddr = gateway;
+                detector.CycleTime = Convert.ToInt32(cycletime);
+
+                RegistryKey startupreg = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
+                string val = (string)startupreg.GetValue("Wifi Observer");
+                if (val == null)
+                    windowsStartup_Chkbox.Checked = false;
+                else
+                    windowsStartup_Chkbox.Checked = true;
+
+                bool autostart;
+                autostart = Convert.ToBoolean(autostart_reg);
+                
+                if (autostart == true)
+                {
+                    autoStart_Chkbox.Checked = true;
+                    detector.Start();
+
+                    if (detector.thread.ThreadState == ThreadState.Background)
+                    {
+                        state_Label.Text = "Running...";
+                        state_Label.ForeColor = Color.LawnGreen;
+                        run_Btn.Text = "STOP";
+                    }
+                }
+                else
+                {
+                    state_Label.Text = "STOPPED";
+                    state_Label.ForeColor = Color.Red;
+                    run_Btn.Text = "RUN";
+                }
+            }
+        }
